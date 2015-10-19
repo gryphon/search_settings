@@ -1,5 +1,7 @@
 = SearchSettings
 
+{<img src="https://circleci.com/gh/gryphon/search_settings.svg?style=svg" alt="Circle CI" />}[https://circleci.com/gh/gryphon/search_settings]
+
 Allows to provide fully and easily customizable table data display with filters.
 
 == Requirements
