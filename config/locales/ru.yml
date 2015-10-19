@@ -1,0 +1,10 @@
+ru:
+  search_settings:
+    close: Закрыть
+    customize_search: Настроить колонки
+    date_from: от
+    date_to: до
+    description: Выберите дополнительные колонки для показа и поиска
+    not_found: Ничего не найдено
+    save: Сохранить
+    search: Поиск

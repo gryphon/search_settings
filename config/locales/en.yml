@@ -1,0 +1,10 @@
+en:
+  search_settings:
+    close: Close
+    customize_search: Customize search
+    date_from: from
+    date_to: to
+    description: Select additional search and display columns
+    not_found: No items found
+    save: Save
+    search: Search

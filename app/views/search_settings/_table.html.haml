@@ -1,0 +1,36 @@
+- model_name = collection.model.model_name.singular
+- fields = search_settings_for(collection.model)
+
+%table{class: ["table", "table-hover", "table-condensed", collection.model.model_name.plural]}
+  %thead
+    %tr
+      - fields.each do |field, defs|
+        - next if defs[:table] == false
+        %th= defs[:label]
+
+      %th.text-right
+        - if !defined?(without_download)
+          = link_to params.merge({:format => :xlsx}), :class => "btn btn-xs btn-default" do
+            = t("download")
+            %i.fa.fa-download
+
+  %tbody
+
+    - collection.each do |item|
+      %tr{:class => (self.send("#{model_name}_row_class", item) rescue "")}
+        - fields.each do |field, defs|
+          - next if defs[:table] == false
+          %td{class: field.to_s}
+            = self.send("#{model_name}_#{field}_field", item) rescue (self.send("#{model_name}_#{field}", item) rescue (item.send(field) rescue field.to_s))
+        %td.text-right
+          - if self.respond_to?(:can?)
+            - if can? :update, item
+              = edit_button [:edit, item]
+            - if can? :destroy, item
+              = delete_button item
+
+    - if collection.length == 0
+      %tr.warning.text-center
+        %td{:colspan=>"100%"}= t("search_settings.not_found")
+
+= paginate collection

@@ -1,0 +1,37 @@
+= SearchSettings
+
+Allows to provide fully and easily customizable table data display with filters.
+
+== Requirements
+
+* simple_form
+* ransack
+* kaminari
+* devise
+
+== How to use
+
+* Add concern to your user model
+* Write some fields definition
+* Add views for table/filter/customizer
+
+== Search types
+
+For each search field you have to specify an object having at least "q" and "type" params
+
+* dates (requires an array of q (from..to) to be set)
+* select (requires collection to be set)
+* text
+
+== Table appearance
+
+* Uses model_attribute_field helper
+* If not found uses model_attribute helper
+* If not found uses model.attribute method
+* Shows nothing if no luck
+
+== Credits
+
+mail@grigor.io
+
+This project rocks and uses MIT-LICENSE.

@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %title Dummy
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+
+    - if user_signed_in?
+      = current_user.email
+      = button_to "Logout", destroy_user_session_path, method: :delete
+
+    - else
+      = button_to "Login", new_user_session_path
+
+    %hr
+
+    = link_to "Categories", categories_path
+    = link_to "Posts", posts_path
+
+    %hr
+
+    = yield

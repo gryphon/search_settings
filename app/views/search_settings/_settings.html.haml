@@ -1,0 +1,17 @@
+#search-fields.modal-dialog
+  .modal-content
+    .modal-header
+      %button.close(type="button" data-dismiss="modal" aria-hidden="true") ×
+      %h4#loginLabel.modal-title= t("search_settings.customize_search")
+    .modal-body
+
+      %p= t("search_settings.description")
+
+      = simple_form_for current_user, url: search_setting_path(id: search_model.model_name.plural), remote: true do |f|
+
+        = f.input "fields", :as => :check_boxes, :collection => search_model.search_settings(current_user).reject {|k,v| v[:appear]==:always }.collect{|x,y| [y[:label],x]}, :label => false, checked: current_user.search_settings_for(search_model).keys
+
+        = f.button :submit
+
+    .modal-footer
+      %button.btn.btn-default(data-dismiss="modal" aria-hidden="true")= t("search_settings.close")

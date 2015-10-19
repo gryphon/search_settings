@@ -1,0 +1,53 @@
+.well.well-sm
+
+  = search_settings_form_for @q do |f|
+
+    .row
+
+      .col-md-10.col-sm-9
+
+        .row
+
+          - search_settings_for(search_model).each do |key, defs|
+
+            - next if defs[:search].nil?
+
+            - field = defs[:search]
+
+            - if field[:type] == :text
+
+              .col-sm-3.col-md-2.col-xs-6
+
+                = f.input field[:q], input_html: {class: "input-sm"}, required: false, label: false, placeholder: defs[:label]
+
+            - if field[:type] == :boolean
+
+              .col-sm-3.col-md-2.col-xs-6
+
+                = f.input field[:q], as: :boolean, input_html: {class: "input-sm"}, required: false, label: defs[:label], unchecked_value: ""
+
+            - if field[:type] == :select
+
+              .col-sm-3.col-md-2.col-xs-6
+
+                = f.input field[:q], :as => :select, :input_html => {:class => "input-sm"}, :required => false, :label => false, :collection => field[:collection], include_blank: defs[:label]
+
+            - if field[:type] == :dates
+
+              .col-sm-6.col-md-4.dates
+
+                = f.input field[:q][0], :as => :date_picker, :label => false, :input_html => {:class => "input-sm"}, :placeholder => defs[:label]+" ("+t("search_settings.date_from")+")", required: false
+                = f.input field[:q][1], :as => :date_picker, :label => false, :input_html => {:class => "input-sm"}, :placeholder => defs[:label]+" ("+t("search_settings.date_to")+")", required: false
+
+      .col-md-2.col-sm-3
+        %div
+        = f.button :submit, :class => "btn btn-default btn-sm btn-block", value: t("search_settings.search")
+
+        - if user_signed_in? && current_user.has_customizable_fields_for?(search_model)
+          = link_to t('search_settings.customize_search'), "#customize-items", "data-target"=>"#customize-items", "data-toggle"=>"modal", :class => "btn btn-link btn-block btn-xs"
+
+- if user_signed_in? && current_user.has_customizable_fields_for?(search_model)
+  #customize-items.modal.fade(tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true")
+    = render partial: "search_settings/settings", locals: {search_model: search_model}
+
+

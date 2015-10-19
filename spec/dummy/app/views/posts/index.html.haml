@@ -1,0 +1,8 @@
+%p#notice= notice
+%h1 Listing Posts
+
+= render partial: "search_settings/filter", locals: { search_model: Post }
+
+= render partial: "search_settings/table", locals: {collection: @posts, without_download: true}
+
+= link_to 'New Post', new_post_path
